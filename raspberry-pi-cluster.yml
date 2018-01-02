@@ -3,34 +3,27 @@
 - name: Configure Raspberry Pi Cluser
   hosts: raspberry-pi-cluster
   become: true
-  tasks:
-    - name: update /etc/hosts
-      blockinfile:
-        marker: "### {mark} ANSIBLE MANAGED BLOCK ###"
-        block: "{{ lookup('file', './files/hosts') }}"
-        dest: /etc/hosts
   roles:
     - role: common
     - role: go1.9
     - role: mpi
-#    - role: hadoop-common
 
-#- name: Configure Hadoop master nodes
-#  hosts: hadoop-master-nodes
-#  vars:
-#    java_home: /usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt
-#    hadoop_home: /home/pi/hadoop
-#    hadoop_version: 2.8.1
-#  roles:
-#    - role: hadoop-common
-#    - role: hadoop-master-nodes
-#
-#- name: Configure Hadoop slave nodes
-#  hosts: hadoop-slave-nodes
-#  vars:
-#    java_home: /usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt
-#    hadoop_home: /home/pi/hadoop
-#    hadoop_version: 2.8.1
-#  roles:
-#    - role: hadoop-common
-#    - role: hadoop-slave-nodes
+- name: Configure Hadoop master nodes
+  hosts: hadoop-master-nodes
+  vars:
+    java_home: /usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt
+    hadoop_home: /home/pi/hadoop
+    hadoop_version: 2.9.0
+  roles:
+    - role: hadoop-common
+    - role: hadoop-master-nodes
+
+- name: Configure Hadoop slave nodes
+  hosts: hadoop-slave-nodes
+  vars:
+    java_home: /usr/lib/jvm/jdk-8-oracle-arm32-vfp-hflt
+    hadoop_home: /home/pi/hadoop
+    hadoop_version: 2.9.0
+  roles:
+    - role: hadoop-common
+    - role: hadoop-slave-nodes
