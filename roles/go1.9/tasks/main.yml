@@ -15,7 +15,7 @@
         group=pi
 
 - name: create the GOPATH directory
-  file: path=/home/pi/Development/Go
+  file: path=/home/pi/Development/go
         state=directory
         owner=pi
         group=pi
