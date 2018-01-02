@@ -12,6 +12,12 @@
     block: "{{ lookup('file', './files/root.bashrc') }}"
     dest: /root/.bashrc
 
+- name: update /etc/hosts
+  blockinfile:
+    marker: "### {mark} ANSIBLE MANAGED BLOCK ###"
+    block: "{{ lookup('file', './files/hosts') }}"
+    dest: /etc/hosts
+
 - name: install development packages
   apt: name=build-essential
        state=latest
