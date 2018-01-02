@@ -1,0 +1,15 @@
+[raspberry-pi-cluster]
+thing1 ansible_ssh_host=10.183.208.11 ansible_ssh_port=22
+thing2 ansible_ssh_host=10.183.208.12 ansible_ssh_port=22
+thing3 ansible_ssh_host=10.183.208.13 ansible_ssh_port=22
+thing4 ansible_ssh_host=10.183.208.14 ansible_ssh_port=22
+thing5 ansible_ssh_host=10.183.208.15 ansible_ssh_port=22
+
+[hadoop-master-nodes]
+thing1 ansible_ssh_host=10.183.208.11 ansible_ssh_port=22
+
+[hadoop-slave-nodes]
+thing2 ansible_ssh_host=10.183.208.12 ansible_ssh_port=22
+thing3 ansible_ssh_host=10.183.208.13 ansible_ssh_port=22
+thing4 ansible_ssh_host=10.183.208.14 ansible_ssh_port=22
+thing5 ansible_ssh_host=10.183.208.15 ansible_ssh_port=22
