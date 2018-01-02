@@ -1,0 +1,31 @@
+---
+
+- name: create the hadoop temp directory
+  file: path="{{hadoop_home}}/tmp"
+        state=directory
+        owner=pi
+        group=pi
+
+- name: create the hadoop hdfs directories
+  file: path="{{hadoop_home}}/hdfs/{{item}}"
+        state=directory
+        owner=pi
+        group=pi
+  with_items: 
+    - data
+    - name
+
+- name: download and explode the hadoop tarball
+  unarchive:
+    creates: "{{hadoop_home}}/hadoop-{{hadoop_version}}"
+    src: "http://archive.apache.org/dist/hadoop/common/hadoop-{{hadoop_version}}/hadoop-{{hadoop_version}}.tar.gz"
+    dest: "{{hadoop_home}}"
+    owner: pi
+    group: pi
+    remote_src: True
+
+- name: update user .bashrc
+  blockinfile:
+    marker: "### {mark} ANSIBLE-COMMON MANAGED BLOCK FOR THE HADOOP ROLE ###"
+    block: "{{ lookup('file', './files/user.bashrc') }}"
+    dest: /home/pi/.bashrc
