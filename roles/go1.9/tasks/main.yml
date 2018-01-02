@@ -1,0 +1,27 @@
+---
+
+- name: download and explode the go tarball
+  unarchive:
+    creates: /usr/local/go/bin/go
+    src: https://storage.googleapis.com/golang/go1.9.2.linux-armv6l.tar.gz
+    dest: /usr/local
+    remote_src: True
+
+# Doing this separate to get set ownership
+- name: create the Development directory
+  file: path=/home/pi/Development
+        state=directory
+        owner=pi
+        group=pi
+
+- name: create the GOPATH directory
+  file: path=/home/pi/Development/Go
+        state=directory
+        owner=pi
+        group=pi
+
+- name: update user .bashrc
+  blockinfile:
+    marker: "### {mark} ANSIBLE MANAGED BLOCK FOR THE GO ROLE ###"
+    block: "{{ lookup('file', './files/go.bashrc') }}"
+    dest: /home/pi/.bashrc

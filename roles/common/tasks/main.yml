@@ -1,0 +1,17 @@
+---
+
+- name: update user .bashrc
+  blockinfile:
+    marker: "### {mark} ANSIBLE MANAGED BLOCK FOR THE COMMON ROLE ###"
+    block: "{{ lookup('file', './files/user.bashrc') }}"
+    dest: /home/pi/.bashrc
+
+- name: update root .bashrc
+  blockinfile:
+    marker: "### {mark} ANSIBLE MANAGED BLOCK FOR THE COMMON ROLE ###"
+    block: "{{ lookup('file', './files/root.bashrc') }}"
+    dest: /root/.bashrc
+
+- name: install development packages
+  apt: name=build-essential
+       state=latest

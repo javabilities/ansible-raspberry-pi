@@ -1,0 +1,7 @@
+---
+
+- name: Update Raspberry Pi Cluser
+  hosts: raspberry-pi-cluster
+  become: true
+  roles:
+    - role: update

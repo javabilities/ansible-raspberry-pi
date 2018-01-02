@@ -1,0 +1,12 @@
+---
+
+- name: update apt cache
+  apt: update_cache=yes
+
+- name: upgrade all packages to the latest version
+  apt:
+    upgrade: dist
+
+- name: remove dependencies that are no longer required
+  apt:
+    autoremove: yes

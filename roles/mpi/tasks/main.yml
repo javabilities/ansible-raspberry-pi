@@ -1,0 +1,11 @@
+---
+
+- name: install fortran
+  apt: name=gfortran
+       state=latest
+
+- name: create the Fortran source directory
+  file: path=/home/pi/Development/fortran
+        state=directory
+        owner=pi
+        group=pi
