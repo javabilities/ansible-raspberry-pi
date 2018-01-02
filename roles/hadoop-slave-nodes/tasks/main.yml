@@ -1,0 +1,44 @@
+---
+
+- name: create the core-site.xml template
+  template:
+    src: core-site.xml.j2
+    dest: "{{hadoop_home}}/hadoop-{{hadoop_version}}/etc/hadoop/core-site.xml"
+    owner: pi
+    group: pi
+
+- name: create the mapred-site.xml template
+  template:
+    src: mapred-site.xml.j2
+    dest: "{{hadoop_home}}/hadoop-{{hadoop_version}}/etc/hadoop/mapred-site.xml"
+    owner: pi
+    group: pi
+
+- name: create the hdfs-site.xml template
+  template:
+    src: hdfs-site.xml.j2
+    dest: "{{hadoop_home}}/hadoop-{{hadoop_version}}/etc/hadoop/hdfs-site.xml"
+    owner: pi
+    group: pi
+
+- name: set ${JAVA_HOME} in the hadoop-env.sh
+  replace:
+    path: "{{hadoop_home}}/hadoop-{{hadoop_version}}/etc/hadoop/hadoop-env.sh"
+    regexp: 'export JAVA_HOME=\S*'
+    replace: 'export JAVA_HOME={{java_home}}'
+    backup: yes
+
+- name: create the masters template
+  template:
+    src: masters.j2
+    dest: "{{hadoop_home}}/hadoop-{{hadoop_version}}/etc/hadoop/masters"
+    owner: pi
+    group: pi
+
+- name: format the hdfs file system
+  command: "{{hadoop_home}}/hadoop-{{hadoop-version}}/bin/hadoop namenode -format creates={{hadoop_home}}/hdfs/name/current"
+#  command: "{{hadoop_home}}/hadoop-{{hadoop-version}}/bin/hadoop namenode -format"
+#  args:
+#    creates: "{{hadoop_home}}/hdfs/name/current"
+
+#  command: "{{hadoop_home}}/hadoop-{{hadoop-version}}/bin/hadoop namenode -format creates={{hadoop_home}}/hdfs/name/current"
