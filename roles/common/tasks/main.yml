@@ -2,8 +2,15 @@
 
 - name: generate an OpenSSL private key with the default values (4096 bits, RSA)
   openssl_privatekey:
-#    path: /home/pi/.ssh/{{ ansible_ssh_name }}.pem
-    path: /home/pi/.ssh/id_rsa
+    path: /home/pi/.ssh/{{ ansible_ssh_name }}_key
+    owner: pi
+    group: pi
+
+- name: generate an OpenSSL public key
+  openssl_publickey:
+    path: /home/pi/.ssh/{{ ansible_ssh_name }}_key.pub
+    privatekey_path: /home/pi/.ssh/{{ ansible_ssh_name }}_key
+    format: OpenSSH
     owner: pi
     group: pi
 
