@@ -1,5 +1,12 @@
 ---
 
+- name: generate an OpenSSL private key with the default values (4096 bits, RSA)
+  openssl_privatekey:
+#    path: /home/pi/.ssh/{{ ansible_ssh_name }}.pem
+    path: /home/pi/.ssh/id_rsa
+    owner: pi
+    group: pi
+
 - name: update user .bashrc
   blockinfile:
     marker: "### {mark} ANSIBLE MANAGED BLOCK FOR THE COMMON ROLE ###"

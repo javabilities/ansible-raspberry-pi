@@ -35,6 +35,13 @@
     owner: pi
     group: pi
 
+- name: create the slaves template
+  template:
+    src: slaves.j2
+    dest: "{{hadoop_home}}/hadoop-{{hadoop_version}}/etc/hadoop/slaves"
+    owner: pi
+    group: pi
+
 - name: format the hdfs file system
   shell: "{{hadoop_home}}/hadoop-{{hadoop_version}}/bin/hdfs namenode -format"
   args:

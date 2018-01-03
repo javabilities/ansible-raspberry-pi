@@ -1,1 +1,3 @@
-{{ansible_ssh_host}} {{ansible_ssh_name}}
+{% for host in groups['hadoop-master-nodes'] %}
+{{ host }}
+{% endfor %}
