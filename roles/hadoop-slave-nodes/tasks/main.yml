@@ -36,9 +36,7 @@
     group: pi
 
 - name: format the hdfs file system
-  command: "{{hadoop_home}}/hadoop-{{hadoop-version}}/bin/hadoop namenode -format creates={{hadoop_home}}/hdfs/name/current"
-#  command: "{{hadoop_home}}/hadoop-{{hadoop-version}}/bin/hadoop namenode -format"
-#  args:
-#    creates: "{{hadoop_home}}/hdfs/name/current"
-
-#  command: "{{hadoop_home}}/hadoop-{{hadoop-version}}/bin/hadoop namenode -format creates={{hadoop_home}}/hdfs/name/current"
+  shell: "{{hadoop_home}}/hadoop-{{hadoop_version}}/bin/hdfs namenode -format"
+  args:
+    executable: /bin/bash
+    creates: "{{hadoop_home}}/hdfs/name/current"
