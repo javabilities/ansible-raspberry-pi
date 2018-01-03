@@ -34,3 +34,9 @@
     dest: "{{hadoop_home}}/hadoop-{{hadoop_version}}/etc/hadoop/masters"
     owner: pi
     group: pi
+
+- name: format the hdfs file system
+  shell: "{{hadoop_home}}/hadoop-{{hadoop_version}}/bin/hdfs namenode -format"
+  args:
+    executable: /bin/bash
+    creates: "{{hadoop_home}}/hdfs/name/current"
