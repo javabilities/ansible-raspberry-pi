@@ -1,0 +1,40 @@
+---
+
+- name: generate an OpenSSL private key with the default values (4096 bits, RSA)
+  openssl_privatekey:
+    path: /home/pi/.ssh/id_rsa
+    state: present
+    owner: pi
+    group: pi
+
+
+# Seems to be an ansible bug if the public key already exists and is in OpenSSH format instead of PEM
+# https://github.com/ansible/ansible/issues/33072
+
+#- name: generate an OpenSSL public key
+#  openssl_publickey:
+#    path: /home/pi/.ssh/id_rsa.pub
+#    privatekey_path: /home/pi/.ssh/id_rsa
+#    format: OpenSSH
+#    force: False
+#    state: present
+#    owner: pi
+#    group: pi
+
+
+- name: fetch all public ssh keys
+  shell: "cat {{pi_home}}/.ssh/id_rsa.pub"
+  become: pi
+  args:
+    executable: /bin/bash
+  register: ssh_keys
+
+- name: check keys
+  debug: msg="{{ ssh_keys.stdout }}"
+
+- name: deploy keys on all servers
+  authorized_key: user=pi key="{{ item[0] }}"
+  delegate_to: "{{ item[1] }}"
+  with_nested:
+    - "{{ ssh_keys.stdout }}"
+    - "{{groups['raspberry-pi-cluster']}}"
