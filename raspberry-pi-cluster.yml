@@ -8,7 +8,7 @@
   roles:
     - role: common
     - role: openssl-keys
-    - role: go1.9
+    - role: golang
     - role: mpi
 
 - name: Configure Hadoop master nodes

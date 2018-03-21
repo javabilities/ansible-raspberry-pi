@@ -1,0 +1,9 @@
+---
+
+- name: Configure Raspberry Pi Cluser
+  hosts: raspberry-pi-cluster
+  become: true
+  vars:
+    pi_home: /home/pi
+  roles:
+    - role: golang

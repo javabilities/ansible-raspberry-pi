@@ -3,7 +3,7 @@
 - name: download and explode the go tarball
   unarchive:
     creates: /usr/local/go/bin/go
-    src: https://storage.googleapis.com/golang/go1.9.2.linux-armv6l.tar.gz
+    src: https://storage.googleapis.com/golang/go1.10.linux-armv6l.tar.gz
     dest: /usr/local
     remote_src: True
 
